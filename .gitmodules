@@ -1,0 +1,3 @@
+[submodule "goland-slib"]
+	path = goland-slib
+	url = https://github.com/sonnguyen9800/golang-slib.git
