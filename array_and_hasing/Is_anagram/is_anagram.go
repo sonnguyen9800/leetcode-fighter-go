@@ -9,7 +9,7 @@ func IsAnagram(first_str string, second_str string) bool {
 
 	for i := 0; i < len(first_str); i++ {
 		runeMap_first[rune(first_str[i])]++
-		runMap_second[rune(first_str[i])]++
+		runMap_second[rune(second_str[i])]++
 	}
 
 	for currentRune, value := range runeMap_first {
