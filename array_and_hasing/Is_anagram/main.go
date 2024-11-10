@@ -223,6 +223,7 @@ func RunTestSingle() {
 	converted := ConvertTestCase(testcase)
 	test.RunTestOne(converted, IsAnagram)
 }
+
 func main() {
 	fmt.Println("Running unit tests for IsAnagram function:")
 	runTests()
