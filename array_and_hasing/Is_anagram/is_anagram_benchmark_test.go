@@ -5,15 +5,16 @@ import (
 )
 
 func BenchmarkIsAnagram(b *testing.B) {
-	tests := []struct {
+
+	var tests = []struct {
 		name  string
 		input InputString
-	}{
-		{"short strings", InputString{"listen", "silent"}},
-		{"medium strings", InputString{"anagram", "nagaram"}},
-		{"long strings", InputString{"abcdefghijklmnopqrstuvwxyz", "zyxwvutsrqponmlkjihgfedcba"}},
-		{"different lengths", InputString{"hello", "worlds"}},
-		{"empty strings", InputString{"", ""}},
+		want  bool
+	}{}
+
+	for _, testCase := range testCases {
+		converted := ConvertTestCase(testCase)
+		tests = append(tests, converted)
 	}
 
 	for _, tt := range tests {
@@ -27,15 +28,15 @@ func BenchmarkIsAnagram(b *testing.B) {
 }
 
 func BenchmarkIsAnagramOptimal(b *testing.B) {
-	tests := []struct {
+	var tests = []struct {
 		name  string
 		input InputString
-	}{
-		{"short strings", InputString{"listen", "silent"}},
-		{"medium strings", InputString{"anagram", "nagaram"}},
-		{"long strings", InputString{"abcdefghijklmnopqrstuvwxyz", "zyxwvutsrqponmlkjihgfedcba"}},
-		{"different lengths", InputString{"hello", "worlds"}},
-		{"empty strings", InputString{"", ""}},
+		want  bool
+	}{}
+
+	for _, testCase := range testCases {
+		converted := ConvertTestCase(testCase)
+		tests = append(tests, converted)
 	}
 
 	for _, tt := range tests {

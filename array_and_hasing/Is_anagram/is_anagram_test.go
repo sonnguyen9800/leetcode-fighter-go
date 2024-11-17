@@ -1,20 +1,19 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestIsAnagram(t *testing.T) {
-	tests := []struct {
+	var tests = []struct {
 		name  string
 		input InputString
 		want  bool
-	}{
-		{"same words", InputString{"listen", "silent"}, true},
-		{"case insensitive", InputString{"Listen", "Silent"}, true},
-		{"different lengths", InputString{"listen", "silently"}, false},
-		{"non-anagrams", InputString{"hello", "world"}, false},
-		{"empty strings", InputString{"", ""}, true},
-		{"single characters", InputString{"a", "A"}, true},
-		{"special characters", InputString{"@b#c", "c#b@"}, true},
+	}{}
+
+	for _, testCase := range testCases {
+		converted := ConvertTestCase(testCase)
+		tests = append(tests, converted)
 	}
 
 	for _, tt := range tests {
@@ -28,18 +27,15 @@ func TestIsAnagram(t *testing.T) {
 }
 
 func TestIsAnagramOptimal(t *testing.T) {
-	tests := []struct {
+	var tests = []struct {
 		name  string
 		input InputString
 		want  bool
-	}{
-		{"same words", InputString{"listen", "silent"}, true},
-		{"case insensitive", InputString{"Listen", "Silent"}, true},
-		{"different lengths", InputString{"listen", "silently"}, false},
-		{"non-anagrams", InputString{"hello", "world"}, false},
-		{"empty strings", InputString{"", ""}, true},
-		{"single characters", InputString{"a", "A"}, true},
-		{"special characters", InputString{"@b#c", "c#b@"}, true},
+	}{}
+
+	for _, testCase := range testCases {
+		converted := ConvertTestCase(testCase)
+		tests = append(tests, converted)
 	}
 
 	for _, tt := range tests {
