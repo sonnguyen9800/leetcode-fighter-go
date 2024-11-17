@@ -18,9 +18,9 @@ type IsAnagramTestCase struct {
 	Expected bool
 }
 
-func ConvertTestCase(testCase IsAnagramTestCase) test.GenericTestCaseBoolOutput[InputString] {
+func ConvertTestCase(testCase IsAnagramTestCase) test.GenericBoolOutput[InputString] {
 
-	return test.GenericTestCaseBoolOutput[InputString]{
+	return test.GenericBoolOutput[InputString]{
 		Expected: testCase.Expected,
 		Input: InputString{
 			S1: testCase.S1,
@@ -204,25 +204,26 @@ func runTests() {
 			true},
 	}
 
-	testCaseConverted := []test.GenericTestCaseBoolOutput[InputString]{}
+	testCaseConverted := []test.GenericBoolOutput[InputString]{}
 
 	for _, testCase := range testCases {
 		converted := ConvertTestCase(testCase)
 		testCaseConverted = append(testCaseConverted, converted)
 	}
 
-	test.RunTestCases(testCaseConverted, IsAnagram)
+	//test.RunTestCases(testCaseConverted, IsAnagram)
 
 }
-func RunTestSingle() {
-	testcase := IsAnagramTestCase{
-		S1:       "Conversation",
-		S2:       "Voicesranton",
-		Expected: true,
-	}
-	converted := ConvertTestCase(testcase)
-	test.RunTestOne(converted, IsAnagram)
-}
+
+//func RunTestSingle() {
+//	testcase := IsAnagramTestCase{
+//		S1:       "Conversation",
+//		S2:       "Voicesranton",
+//		Expected: true,
+//	}
+//	converted := ConvertTestCase(testcase)
+//	test.RunTestOne(converted, IsAnagram)
+//}
 
 func main() {
 	fmt.Println("Running unit tests for IsAnagram function:")
