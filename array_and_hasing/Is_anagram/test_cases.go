@@ -75,7 +75,7 @@ var testCases = []IsAnagramTestCase{
 	{"مرحبا", "مرحبه", false},  // Almost similar Arabic
 	{"γειά", "γειάγει", false}, // Additional Greek characters
 
-	// Long strings with identical characters
+	//// Long strings with identical characters
 	{string(make([]byte, 10000)), string(make([]byte, 10000)), true}, // All-zero long string
 	{string(make([]byte, 9999)), string(make([]byte, 10000)), false}, // Different lengths
 
