@@ -15,13 +15,17 @@ func TestIsAnagramOptimal(t *testing.T) {
 	}
 
 	println("Test Length: ", len(tests))
-	for _, tt := range tests {
+	for counter, tt := range tests {
+		println(counter)
 		t.Run(tt.name, func(t *testing.T) {
-			IsAnagramOptimal(tt.input)
+			got := IsAnagramOptimal(tt.input)
 			//if got != tt.want {
 			//	t.Errorf("Result = %v, want %v", got, tt.want)
 			//	t.Errorf("IsAnagramOptimal(%v) = %v; want %v", tt.input, got, tt.want)
 			//}
+			if got != tt.want {
+				t.Errorf("IsAnagramOptimal(%v) = %v; want %v", tt.input, got, tt.want)
+			}
 		})
 	}
 }
