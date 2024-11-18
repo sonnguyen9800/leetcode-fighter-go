@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestIsAnagramOptimal(t *testing.T) {
 	var tests = []struct {
@@ -14,15 +17,9 @@ func TestIsAnagramOptimal(t *testing.T) {
 		tests = append(tests, converted)
 	}
 
-	println("Test Length: ", len(tests))
 	for counter, tt := range tests {
-		println(counter)
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(fmt.Sprintf("Test: %d", counter), func(t *testing.T) {
 			got := IsAnagramOptimal(tt.input)
-			//if got != tt.want {
-			//	t.Errorf("Result = %v, want %v", got, tt.want)
-			//	t.Errorf("IsAnagramOptimal(%v) = %v; want %v", tt.input, got, tt.want)
-			//}
 			if got != tt.want {
 				t.Errorf("IsAnagramOptimal(%v) = %v; want %v", tt.input, got, tt.want)
 			}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -16,8 +17,8 @@ func TestIsAnagram(t *testing.T) {
 		tests = append(tests, converted)
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for counter, tt := range tests {
+		t.Run(fmt.Sprintf("Test: %d", counter), func(t *testing.T) {
 			got := IsAnagram(tt.input)
 			if got != tt.want {
 				t.Errorf("isAnagram() = %v, want %v", got, tt.want)

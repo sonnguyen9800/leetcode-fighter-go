@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -17,8 +18,8 @@ func BenchmarkIsAnagram(b *testing.B) {
 		tests = append(tests, converted)
 	}
 
-	for _, tt := range tests {
-		b.Run(tt.name, func(b *testing.B) {
+	for counter, tt := range tests {
+		b.Run(fmt.Sprintf("Test: %d", counter), func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				IsAnagram(tt.input)
 			}
@@ -39,8 +40,8 @@ func BenchmarkIsAnagramOptimal(b *testing.B) {
 		tests = append(tests, converted)
 	}
 
-	for _, tt := range tests {
-		b.Run(tt.name, func(b *testing.B) {
+	for counter, tt := range tests {
+		b.Run(fmt.Sprintf("Test: %d", counter), func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				IsAnagramOptimal(tt.input)
 			}
