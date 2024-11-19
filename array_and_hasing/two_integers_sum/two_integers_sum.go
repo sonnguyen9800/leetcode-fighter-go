@@ -21,6 +21,23 @@ func TwoSumBruteForce(input TwoIntergersInput) []int {
 
 	return []int{0, 0}
 }
+
+func TwoSumOnePass(input TwoIntergersInput) []int {
+	dict_input := make(map[int]int)
+	for i := 0; i < len(input.ArrayInt); i++ {
+		dict_input[input.ArrayInt[i]] = i
+	}
+	for i := 0; i < len(input.ArrayInt); i++ {
+		value, exists := dict_input[input.Target-input.ArrayInt[i]]
+
+		if value != i && exists {
+			return []int{value, i}
+		}
+	}
+
+	return []int{0, 0}
+}
+
 func _TwoSum(num_array []int, target int) []int {
 
 	dest1 := make([]int, len(num_array))
