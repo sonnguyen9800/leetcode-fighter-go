@@ -15,10 +15,10 @@ func TestTwoSum(t *testing.T) {
 		converted := ConvertTestCase(testCase)
 		tests = append(tests, converted)
 	}
-
+	
 	for counter, tt := range tests {
-		t.Run(fmt.Sprintf("Test: %d", counter+29), func(t *testing.T) {
-			got := TwoSum(tt.input)
+		t.Run(fmt.Sprintf("Test: %d", counter), func(t *testing.T) {
+			got := TwoSumBruteForce(tt.input)
 			var x1 = got[0] != tt.want[0] || got[1] != tt.want[1]
 			var y1 = got[0] != tt.want[1] || got[1] != tt.want[0]
 

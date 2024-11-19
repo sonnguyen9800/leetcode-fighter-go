@@ -1,6 +1,6 @@
 package main
 
-func TwoSum(input TwoIntergersInput) []int {
+func TwoSumBruteForce(input TwoIntergersInput) []int {
 	num_array := input.ArrayInt
 	target := input.Target
 
