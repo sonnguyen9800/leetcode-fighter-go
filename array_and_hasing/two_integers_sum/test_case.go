@@ -1,5 +1,9 @@
 package main
 
+import (
+	"math/rand"
+)
+
 type TwoIntegersSumTestCase struct {
 	Id       int
 	Input    TwoIntergersInput
@@ -74,4 +78,51 @@ var testCases = []TwoIntegersSumTestCase{
 	{Input: TwoIntergersInput{ArrayInt: []int{7, 3, 8, 5}, Target: 15}, Expected: [2]int{0, 2}},
 	{Input: TwoIntergersInput{ArrayInt: []int{4, 3, 1, 5}, Target: 8}, Expected: [2]int{1, 3}},
 	// Add more combinations using similar logic to cover edge and normal cases.
+}
+
+// GenerateFuzzyTestCases generates `n` test cases, ensuring exactly one valid pair exists per input.
+func GenerateFuzzyTestCases(n int,
+	arraySizeRange [2]int,
+	valueRange [2]int) []TwoIntegersSumTestCase {
+	var outputTestCase []TwoIntegersSumTestCase
+
+	for i := 0; i < n; i++ {
+		// Generate a random array size
+		arraySize := rand.Intn(arraySizeRange[1]-arraySizeRange[0]+1) + arraySizeRange[0]
+		array := make([]int, 0)
+		usedNumbers := make(map[int]bool) // Tracks already used numbers
+
+		// Fill the array with unique random values
+		for len(array) < arraySize {
+			num := rand.Intn(valueRange[1]-valueRange[0]+1) + valueRange[0]
+			if !usedNumbers[num] {
+				array = append(array, num)
+				usedNumbers[num] = true
+			}
+		}
+
+		// Select two distinct random indices
+		idx1 := rand.Intn(arraySize)
+		idx2 := rand.Intn(arraySize)
+
+		for idx2 == idx1 {
+			idx1 = rand.Intn(arraySize)
+			idx2 = rand.Intn(arraySize)
+		}
+
+		// Calculate the target value based on the selected indices
+		target := array[idx1] + array[idx2]
+
+		// Add the test case
+		outputTestCase = append(outputTestCase, TwoIntegersSumTestCase{
+			Id: i + 1,
+			Input: TwoIntergersInput{
+				ArrayInt: array,
+				Target:   target,
+			},
+			Expected: [2]int{idx1, idx2},
+		})
+	}
+
+	return outputTestCase
 }
