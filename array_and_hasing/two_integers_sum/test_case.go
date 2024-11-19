@@ -90,15 +90,11 @@ func GenerateFuzzyTestCases(n int,
 		// Generate a random array size
 		arraySize := rand.Intn(arraySizeRange[1]-arraySizeRange[0]+1) + arraySizeRange[0]
 		array := make([]int, 0)
-		usedNumbers := make(map[int]bool) // Tracks already used numbers
-
 		// Fill the array with unique random values
 		for len(array) < arraySize {
 			num := rand.Intn(valueRange[1]-valueRange[0]+1) + valueRange[0]
-			if !usedNumbers[num] {
-				array = append(array, num)
-				usedNumbers[num] = true
-			}
+			array = append(array, num)
+
 		}
 
 		// Select two distinct random indices
