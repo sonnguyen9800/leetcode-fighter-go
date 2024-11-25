@@ -1,4 +1,4 @@
-package main
+package is_anagram
 
 var testCases = []IsAnagramTestCase{
 	// Basic anagrams

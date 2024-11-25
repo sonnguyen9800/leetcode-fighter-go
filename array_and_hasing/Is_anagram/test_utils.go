@@ -1,4 +1,4 @@
-package main
+package is_anagram
 
 import "fmt"
 
