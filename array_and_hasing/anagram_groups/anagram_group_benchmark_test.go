@@ -7,6 +7,7 @@ import (
 )
 
 var N = 1000
+
 var MinNumGroup = 1
 var MaxNumGroup = 2
 
@@ -98,5 +99,16 @@ func BenchmarkGroupAnagrams(b *testing.B) {
 		}
 
 	})
+	b.Run(fmt.Sprint("Neetcode "), func(b *testing.B) {
+		for n := 0; n < b.N; n++ {
+			for i := 0; i < N; i++ {
+				actual := groupAnagramsNeetCodeSolution(input_lst[i])
+				if !areArraysEqual(actual, expected_lst[i]) {
+					b.Errorf("Input: %v", input_lst[i])
+					b.Errorf("Actual %v \n Expected %v", actual, expected_lst[i])
+				}
+			}
+		}
 
+	})
 }
