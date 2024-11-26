@@ -1,6 +1,9 @@
 package anagram_groups
 
-import is_anagram "leetcode-fighter-go/array_and_hasing/Is_anagram"
+import (
+	is_anagram "leetcode-fighter-go/array_and_hasing/Is_anagram"
+	"sort"
+)
 
 func groupAnagramsNeetCodeSolution(strs []string) [][]string {
 	res := make(map[[26]int][]string)
@@ -37,22 +40,35 @@ func CheckIfAnagramExist(string2 string, map_input map[string][]string) {
 
 }
 
+func GroupAnagramNew(strs []string) [][]string {
+	res := make(map[string][]string)
+	sortified := func(str string) string {
+		runes := []rune(str)
+		sort.Slice(runes, func(i, j int) bool {
+			return runes[i] < runes[j]
+		})
+		return string(runes)
+	}
+	for _, str := range strs {
+		sorted_string := sortified(str)
+		res[sorted_string] = append(res[sorted_string], str)
+	}
+	data := [][]string{}
+	for _, strs_value := range res {
+		data = append(data, strs_value)
+	}
+	return data
+}
+
 func GroupAnagrams(strs []string) [][]string {
 	anagramMap := make(map[string][]string)
 
 	for _, str := range strs {
 		CheckIfAnagramExist(str, anagramMap)
 	}
-
 	data := [][]string{}
-
 	for _, strs_value := range anagramMap {
-		array_str := []string{}
-		for _, str := range strs_value {
-			array_str = append(array_str, str)
-		}
-		data = append(data, array_str)
+		data = append(data, strs_value)
 	}
-
 	return data
 }

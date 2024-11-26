@@ -87,7 +87,7 @@ func BenchmarkGroupAnagrams(b *testing.B) {
 
 	}
 
-	b.Run(fmt.Sprint("Test "), func(b *testing.B) {
+	b.Run(fmt.Sprintf("First Solution: N=%d", N), func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
 			for i := 0; i < N; i++ {
 				actual := GroupAnagrams(input_lst[i])
@@ -99,10 +99,22 @@ func BenchmarkGroupAnagrams(b *testing.B) {
 		}
 
 	})
-	b.Run(fmt.Sprint("Neetcode "), func(b *testing.B) {
+	b.Run(fmt.Sprintf("Neetcode: N=%d", N), func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
 			for i := 0; i < N; i++ {
 				actual := groupAnagramsNeetCodeSolution(input_lst[i])
+				if !areArraysEqual(actual, expected_lst[i]) {
+					b.Errorf("Input: %v", input_lst[i])
+					b.Errorf("Actual %v \n Expected %v", actual, expected_lst[i])
+				}
+			}
+		}
+
+	})
+	b.Run(fmt.Sprintf("New Solution: N=%d", N), func(b *testing.B) {
+		for n := 0; n < b.N; n++ {
+			for i := 0; i < N; i++ {
+				actual := GroupAnagramNew(input_lst[i])
 				if !areArraysEqual(actual, expected_lst[i]) {
 					b.Errorf("Input: %v", input_lst[i])
 					b.Errorf("Actual %v \n Expected %v", actual, expected_lst[i])
