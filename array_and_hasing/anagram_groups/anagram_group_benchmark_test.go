@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-var N = 1000
+var N = 10000
 
 var MinNumGroup = 1
 var MaxNumGroup = 2
