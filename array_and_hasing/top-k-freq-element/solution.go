@@ -14,12 +14,12 @@ func TopKFreqElement(nums []int, k int) []int {
 
 	// Creating a map of frequency of each frequency
 	freqMapByCount := make(map[int][]int)
-	for _, freqValue := range freqMap {
-
+	for key, freqValue := range freqMap {
+		print(key, freqValue)
 		if freqMapByCount[freqValue] == nil {
 			freqMapByCount[freqValue] = []int{}
 		}
-		freqMapByCount[freqValue] = append(freqMapByCount[freqValue], freqValue)
+		freqMapByCount[freqValue] = append(freqMapByCount[freqValue], key)
 	}
 
 	output_array := []int{}
@@ -33,10 +33,11 @@ func TopKFreqElement(nums []int, k int) []int {
 		if current_length >= k {
 			break
 		}
-		next_length := current_length + len(freqMapByCount[i])
+		next_length := len(freqMapByCount[i])
 
 		if (next_length + current_length) > k {
-			output_array = append(output_array, freqMapByCount[i][:k-current_length]...)
+			amount := k - current_length
+			output_array = append(output_array, freqMapByCount[i][amount:]...)
 			break
 		} else {
 			output_array = append(output_array, freqMapByCount[i]...)
