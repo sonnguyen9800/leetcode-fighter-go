@@ -35,8 +35,13 @@ func TopKFreqElement(nums []int, k int) []int {
 		next_length := len(freqMapByCount[i])
 
 		if (next_length + current_length) > k {
-			amount := k - current_length
-			output_array = append(output_array, freqMapByCount[i][amount:]...)
+			var amount int
+			if k > current_length {
+				amount = k - current_length
+			} else {
+				amount = current_length - k
+			}
+			output_array = append(output_array, freqMapByCount[i][0:amount]...)
 			break
 		} else {
 			output_array = append(output_array, freqMapByCount[i]...)
