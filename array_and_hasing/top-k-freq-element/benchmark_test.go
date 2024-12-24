@@ -114,7 +114,7 @@ func generateFuzzyTestCases(numCases int) [][3]interface{} {
 	return testCases
 }
 
-func BenchmarkMySolution(b *testing.B) {
+func BenchmarkTopKFreq(b *testing.B) {
 	b.ResetTimer()
 
 	testCases := generateFuzzyTestCases(TEST_CASES_NUMBER)
