@@ -79,7 +79,7 @@ func topKFrequent_bucket_sort(nums []int, k int) []int {
 	return res
 }
 
-func topKFrequent_neetcodesolution(nums []int, k int) []int {
+func topKFrequent_neetcodesolution_3rdlibrary(nums []int, k int) []int {
 	count := make(map[int]int)
 	for _, num := range nums {
 		count[num]++

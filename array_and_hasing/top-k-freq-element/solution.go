@@ -1,10 +1,10 @@
 package topkfreqelement
 
 func TopKFreqElement(nums []int, k int) []int {
-	// length := len(nums)
-	// if k > length {
-	// 	return []int{}
-	// }
+	length := len(nums)
+	if k > length {
+		return []int{}
+	}
 
 	// Creating a map of frequency of each element
 	freqMap := make(map[int]int)
@@ -14,21 +14,16 @@ func TopKFreqElement(nums []int, k int) []int {
 
 	// Creating a map of frequency of each frequency
 	freqMapByCount := make(map[int][]int)
-	highest_frequency := 0
-
 	for key, freqValue := range freqMap {
 		if freqMapByCount[freqValue] == nil {
 			freqMapByCount[freqValue] = []int{}
 		}
 		freqMapByCount[freqValue] = append(freqMapByCount[freqValue], key)
-		if freqValue > highest_frequency {
-			highest_frequency = freqValue
-		}
 	}
 
 	output_array := []int{}
 
-	for i := highest_frequency; i >= 0; i-- {
+	for i := 9999; i >= 0; i-- {
 
 		if len(freqMapByCount[i]) == 0 {
 			continue
@@ -60,12 +55,6 @@ func TopKFreqElement(nums []int, k int) []int {
 ///
 
 func TopKFreqElement_Optimal(nums []int, k int) []int {
-	// length := len(nums)
-	// if k > length {
-	// 	return []int{}
-	// }
-
-	// Creating a map of frequency of each element
 	freqMap := make(map[int]int)
 	for _, num := range nums {
 		freqMap[num] += 1
@@ -94,5 +83,4 @@ func TopKFreqElement_Optimal(nums []int, k int) []int {
 
 	}
 	return output_array
-
 }

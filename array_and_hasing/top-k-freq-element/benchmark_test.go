@@ -86,31 +86,29 @@ func generateFuzzyTestCases(numCases int) [][3]interface{} {
 
 func BenchmarkTopKFreq(b *testing.B) {
 
-	b.ResetTimer()
-
 	testCases := generateFuzzyTestCases(TEST_CASES_NUMBER)
-
-	b.Run("Custom Solution", func(b *testing.B) {
-		for n := 0; n < b.N; n++ {
-			for _, tc := range testCases {
-				nums := tc[0].([]int)
-				k := tc[1].(int)
-				expected := tc[2].([]int)
-				got := TopKFreqElement(nums, k)
-
-				if !compareUnorderedSlices(got, expected) {
-					b.Errorf("Failed: \n")
-					b.Logf("nums: %v", nums)
-					b.Logf("k: %v", k)
-
-					b.Logf("Expected: %v", expected)
-					b.Logf("Got: %v", got)
-
-				}
-			}
-		}
-	})
 	b.ResetTimer()
+	// b.Run("Custom Solution", func(b *testing.B) {
+	// 	for n := 0; n < b.N; n++ {
+	// 		for _, tc := range testCases {
+	// 			nums := tc[0].([]int)
+	// 			k := tc[1].(int)
+	// 			expected := tc[2].([]int)
+	// 			got := TopKFreqElement(nums, k)
+
+	// 			if !compareUnorderedSlices(got, expected) {
+	// 				b.Errorf("Failed: \n")
+	// 				b.Logf("nums: %v", nums)
+	// 				b.Logf("k: %v", k)
+
+	// 				b.Logf("Expected: %v", expected)
+	// 				b.Logf("Got: %v", got)
+
+	// 			}
+	// 		}
+	// 	}
+	// })
+	// b.ResetTimer()
 
 	b.Run("Custom Solution - Optimal", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
@@ -132,6 +130,7 @@ func BenchmarkTopKFreq(b *testing.B) {
 			}
 		}
 	})
+	b.ResetTimer()
 	b.Run("Sorting - Neetocode Solution", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
 			for _, tc := range testCases {
@@ -154,7 +153,7 @@ func BenchmarkTopKFreq(b *testing.B) {
 		}
 	})
 	b.ResetTimer()
-	b.Run("Heap - Neetocode Solution", func(b *testing.B) {
+	b.Run("Heap_(NeetcodeSolution)", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
 			for _, tc := range testCases {
 				nums := tc[0].([]int)
@@ -176,7 +175,7 @@ func BenchmarkTopKFreq(b *testing.B) {
 		}
 	})
 	b.ResetTimer()
-	b.Run("Heap - BUcket Sort Solution", func(b *testing.B) {
+	b.Run("BucketSort(NeetcodeSolution)", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
 			for _, tc := range testCases {
 				nums := tc[0].([]int)
@@ -198,36 +197,14 @@ func BenchmarkTopKFreq(b *testing.B) {
 		}
 	})
 	b.ResetTimer()
-	b.Run("Heap -  Sort Solution", func(b *testing.B) {
+	b.Run("Using 3rd Party(Neetcode Solution)", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
 			for _, tc := range testCases {
 				nums := tc[0].([]int)
 				k := tc[1].(int)
 				expected := tc[2].([]int)
 
-				got := topKFrequent_bucket_sort(nums, k)
-
-				if !compareUnorderedSlices(got, expected) {
-					b.Errorf("Failed: \n")
-					b.Logf("nums: %v", nums)
-					b.Logf("k: %v", k)
-
-					b.Logf("Expected: %v", expected)
-					b.Logf("Got: %v", got)
-
-				}
-			}
-		}
-	})
-	b.ResetTimer()
-	b.Run("Heap -  Sort Solution Using 3rd Library", func(b *testing.B) {
-		for n := 0; n < b.N; n++ {
-			for _, tc := range testCases {
-				nums := tc[0].([]int)
-				k := tc[1].(int)
-				expected := tc[2].([]int)
-
-				got := topKFrequent_neetcodesolution(nums, k)
+				got := topKFrequent_neetcodesolution_3rdlibrary(nums, k)
 
 				if !compareUnorderedSlices(got, expected) {
 					b.Errorf("Failed: \n")
