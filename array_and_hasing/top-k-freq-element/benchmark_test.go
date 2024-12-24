@@ -115,6 +115,7 @@ func generateFuzzyTestCases(numCases int) [][3]interface{} {
 }
 
 func BenchmarkTopKFreq(b *testing.B) {
+
 	b.ResetTimer()
 
 	testCases := generateFuzzyTestCases(TEST_CASES_NUMBER)
@@ -185,7 +186,7 @@ func BenchmarkTopKFreq(b *testing.B) {
 		}
 	})
 	b.ResetTimer()
-	b.Run("Heap - Neetocode Solution", func(b *testing.B) {
+	b.Run("Heap - BUcket Sort Solution", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
 			for _, tc := range testCases {
 				nums := tc[0].([]int)
