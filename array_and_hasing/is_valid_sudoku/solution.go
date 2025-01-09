@@ -21,6 +21,9 @@ func is_valid_sudoku(input [][]string) bool {
 		hashmap = make(map[int]bool)
 
 		for j := 0; j < len(parsed_input[i]); j++ {
+			if parsed_input[i][j] == 0 {
+				continue
+			}
 			if hashmap[parsed_input[i][j]] == true {
 				return false
 			}
@@ -33,6 +36,9 @@ func is_valid_sudoku(input [][]string) bool {
 		hashmap = make(map[int]bool)
 
 		for j := 0; j < len(parsed_input[i]); j++ {
+			if parsed_input[j][i] == 0 {
+				continue
+			}
 			if hashmap[parsed_input[j][i]] == true {
 				return false
 			}
@@ -46,6 +52,9 @@ func is_valid_sudoku(input [][]string) bool {
 
 		for i := 0; i < 3; i++ {
 			for j := 0; j < 3; j++ {
+				if parsed_input[i][j] == 0 {
+					continue
+				}
 				if hashmap[parsed_input[i][j]] == true {
 					return false
 				} else {
