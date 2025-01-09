@@ -2,6 +2,7 @@ package is_valid_sudoku
 
 import (
 	"math/rand"
+	"strings"
 	"testing"
 	"time"
 )
@@ -10,7 +11,7 @@ const (
 	MIN_FILLED_CELLS = 10
 	MAX_FILLED_CELLS = 30
 	BOARD_SIZE       = 9
-	TEST_CASES_NUM   = 10
+	TEST_CASES_NUM   = 1000
 )
 
 // Generate a random Sudoku board
@@ -92,22 +93,57 @@ func BenchmarkIsValidSudoku(b *testing.B) {
 		}
 	}
 }
+func BenchmarkIsValidSudoku_Optimal(b *testing.B) {
+	testCases := generateFuzzyTestCases(TEST_CASES_NUM)
+	results := make([]bool, TEST_CASES_NUM)
+
+	// Precompute expected results using a reference solution
+	for i, testCase := range testCases {
+		results[i] = isValidSudoku_neetcode(testCase)
+	}
+
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		for i, testCase := range testCases {
+			actual := is_valid_sudoku_optimal(testCase)
+			if actual != results[i] {
+				b.Errorf("Test case %d failed.\nExpected: %v, Got: %v\n", i+1, results[i], actual)
+				b.Logf("Board:\n%v\n", testCase)
+			}
+		}
+	}
+}
+
+func Convert(input string) [][]string {
+	// Step 1: Remove outer brackets
+	input = strings.Trim(input, "[]")
+
+	// Step 2: Split by row (separated by "] [")
+	rows := strings.Split(input, "] [")
+	testCases := [][]string{}
+	for _, row := range rows {
+		// Remove any remaining brackets and split by spaces
+		row = strings.Trim(row, "[]")
+		elements := strings.Fields(row)
+		testCases = append(testCases, elements)
+	}
+	return testCases
+}
+
 func BenchmarkIsValidSudoku_singlecase(b *testing.B) {
 	testCases := make([][]string, 1)
+	errorCaseStr := "        " +
+		"[[. . . . . 8 . . .] " +
+		"[. 2 9 . . . . . .] " +
+		"[. 6 . . . . . . .] " +
+		"[6 . . 7 . . . 2 .] " +
+		"[. . . . . . 8 . 2] " +
+		"[. . . . . . . . .] " +
+		"[. . . . . . . . .] " +
+		"[. 9 . . . . 1 . .] " +
+		"[. 7 . . . . . . .]]"
 
-	testCases = [][]string{
-		{".", ".", "5", ".", ".", ".", ".", ".", "."},
-		{".", ".", ".", ".", ".", "7", ".", ".", "."},
-		{".", ".", ".", ".", ".", ".", ".", ".", "."},
-
-		{".", "5", ".", ".", "2", ".", ".", ".", "."},
-		{".", "1", "7", ".", ".", ".", ".", ".", "."},
-		{".", ".", ".", ".", ".", ".", ".", ".", "."},
-
-		{"4", "7", ".", "1", ".", ".", ".", ".", "."},
-		{".", ".", "2", ".", ".", ".", ".", ".", "."},
-		{".", ".", ".", ".", "4", "9", ".", ".", "."},
-	}
+	testCases = Convert(errorCaseStr)
 
 	// Precompute expected results using a reference solution
 	results := isValidSudoku_neetcode(testCases)
