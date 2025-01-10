@@ -79,7 +79,7 @@ func BenchmarkIsValidSudoku(b *testing.B) {
 
 	// Precompute expected results using a reference solution
 	for i, testCase := range testCases {
-		results[i] = isValidSudoku_neetcode(testCase)
+		results[i] = isValidSudoku_Neetcode2(testCase)
 	}
 
 	b.ResetTimer()
@@ -99,7 +99,7 @@ func BenchmarkIsValidSudoku_Optimal(b *testing.B) {
 
 	// Precompute expected results using a reference solution
 	for i, testCase := range testCases {
-		results[i] = isValidSudoku_neetcode(testCase)
+		results[i] = isValidSudoku_Neetcode2(testCase)
 	}
 
 	b.ResetTimer()
@@ -150,25 +150,16 @@ func Convert(input string) [][]string {
 
 func BenchmarkIsValidSudoku_singlecase(b *testing.B) {
 	testCases := make([][]string, 1)
-	errorCaseStr := "        " +
-		"[[. . . . . 8 . . .] " +
-		"[. 2 9 . . . . . .] " +
-		"[. 6 . . . . . . .] " +
-		"[6 . . 7 . . . 2 .] " +
-		"[. . . . . . 8 . 2] " +
-		"[. . . . . . . . .] " +
-		"[. . . . . . . . .] " +
-		"[. 9 . . . . 1 . .] " +
-		"[. 7 . . . . . . .]]"
+	errorCaseStr := "[[. . . . 3 5 . 2 .] [. . . . . . . . .] [. . . . . . . . .] [. . 6 . . . . . 8] [9 7 . 5 . . . . .] [. 5 . . . 6 . . .] [. 2 . . 6 . . 4 .] [. . . . . . . 6 .] [. 6 . 9 . . 5 . .]]"
 
 	testCases = Convert(errorCaseStr)
 
 	// Precompute expected results using a reference solution
-	results := isValidSudoku_neetcode(testCases)
+	results := isValidSudoku_Neetcode2(testCases)
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		actual := is_valid_sudoku(testCases)
+		actual := is_valid_sudoku_optimal(testCases)
 		if actual != results {
 			b.Errorf("Test case failed.\nExpected: %v, Got: %v\n", results, actual)
 			b.Logf("Board:\n%v\n", testCases)
