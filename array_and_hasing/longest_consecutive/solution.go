@@ -38,16 +38,15 @@ func longestConsecutiveOnePassB(nums []int) int {
 
 			if next != 0 && previous == 0 {
 				prev_series_length := hash[num+1] // this also MUST containt length of the consecutive
-
 				new_series_length := hash[num+prev_series_length] + 1
 				hash[num] = new_series_length // Also update "new" last index to the length of series
 			}
 
 			if previous != 0 && next == 0 {
 				// if num is new leading number of the series, with no "follower"
-				last_leading_value := hash[num-1] // this also MUST containt length of the consecutive
-				hash[num] = last_leading_value + 1
-				hash[num-last_leading_value] = last_leading_value + 1 // this supposed to be the "first" value in the series ("lower-bound")
+				next_series_length := hash[num-1]
+				new_series_length := next_series_length + 1 // this also MUST containt length of the consecutive
+				hash[num] = new_series_length
 
 			}
 
