@@ -9,10 +9,10 @@ import (
 
 const (
 	MIN_ARRAY_SIZE = 0
-	MAX_ARRAY_SIZE = 1000
-	MIN_VALUE      = -10
-	MAX_VALUE      = 10
-	TEST_CASES_NUM = 100
+	MAX_ARRAY_SIZE = 10
+	MIN_VALUE      = -1000
+	MAX_VALUE      = 1000
+	TEST_CASES_NUM = 1000
 )
 
 // Generate a random array within the problem constraints
@@ -35,26 +35,6 @@ func generateFuzzyTestCases(numCases int) [][]int {
 }
 
 // Benchmark the solution using random test cases
-func BenchmarkLongestConsecutiveSequence(b *testing.B) {
-	testCases := generateFuzzyTestCases(TEST_CASES_NUM)
-	expectedResults := make([]int, TEST_CASES_NUM)
-
-	// Precompute results for comparison
-	for i, testCase := range testCases {
-		expectedResults[i] = longestConsecutiveNeetcode(testCase)
-	}
-
-	b.ResetTimer()
-	for n := 0; n < b.N; n++ {
-		for i, tc := range testCases {
-			actual := longestConsecutive(tc)
-			if actual != expectedResults[i] {
-				b.Errorf("Failed for test case %v", tc)
-				b.Logf("Expected: %d, Got: %d", expectedResults[i], actual)
-			}
-		}
-	}
-}
 
 func Convert(input string) []int {
 
@@ -76,16 +56,35 @@ func Convert(input string) []int {
 }
 
 func BenchmarkLongestConsecutiveSequenceSingle(b *testing.B) {
-	testCases := Convert("[1 5 10 7 -5]")
+	testCases := Convert("[7 8 5 10 5 6 2 6 9]")
+	//	testCases := Convert("[  -8  -7 -9 -6 ]")
 
-	result := longestConsecutiveNeetcode(testCases)
+	result := longestConsecutiveNeetcodeB(testCases, b)
+
+	b.ResetTimer()
+	actual := longestConsecutiveOnePassB(testCases)
+	if actual != result {
+		b.Errorf("Failed for test case %v", testCases)
+		b.Logf("Expected: %d, Got: %d", result, actual)
+	}
+}
+func BenchmarkLongestConsecutiveSequence(b *testing.B) {
+	testCases := generateFuzzyTestCases(TEST_CASES_NUM)
+	expectedResults := make([]int, TEST_CASES_NUM)
+
+	// Precompute results for comparison
+	for i, testCase := range testCases {
+		expectedResults[i] = longestConsecutiveNeetcode(testCase)
+	}
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		actual := longestConsecutive(testCases)
-		if actual != result {
-			b.Errorf("Failed for test case %v", testCases)
-			b.Logf("Expected: %d, Got: %d", result, actual)
+		for i, tc := range testCases {
+			actual := longestConsecutiveOnePassB(tc)
+			if actual != expectedResults[i] {
+				b.Errorf("Failed for test case %v", tc)
+				b.Logf("Expected: %d, Got: %d", expectedResults[i], actual)
+			}
 		}
 	}
 }
