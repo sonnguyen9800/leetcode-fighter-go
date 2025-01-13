@@ -29,36 +29,14 @@ func longestConsecutiveOnePassB(nums []int) int {
 	greatestConsCount := 0
 	for _, num := range nums {
 		if hash[num] == 0 {
-			next := hash[num+1]
-			previous := hash[num-1]
 
-			//if previous == 0 && next == 0 {
-			//	hash[num] = 1
-			//}
+			prev_series_length := hash[num-1] // the leading of a 1st series (upper bound)
+			next_series_length := hash[num+1] // the lower bound of a series
 
-			if next != 0 && previous == 0 {
-				prev_series_length := hash[num+1] // this also MUST containt length of the consecutive
-				new_series_length := hash[num+prev_series_length] + 1
-				hash[num] = new_series_length // Also update "new" last index to the length of series
-			}
-
-			if previous != 0 && next == 0 {
-				// if num is new leading number of the series, with no "follower"
-				next_series_length := hash[num-1]
-				new_series_length := next_series_length + 1 // this also MUST containt length of the consecutive
-				hash[num] = new_series_length
-
-			}
-
-			if (previous != 0 && next != 0) || (previous == 0 && next == 0) {
-				prev_series_length := hash[num-1] // the leading of a 1st series (upper bound)
-				next_series_length := hash[num+1] // the lower bound of a series
-
-				new_series_length := prev_series_length + next_series_length + 1
-				hash[num] = new_series_length
-				hash[num-prev_series_length] = new_series_length
-				hash[num+next_series_length] = new_series_length
-			}
+			new_series_length := prev_series_length + next_series_length + 1
+			hash[num] = new_series_length
+			hash[num-prev_series_length] = new_series_length
+			hash[num+next_series_length] = new_series_length
 
 		}
 	}
